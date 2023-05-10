@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { getRooms } from './features/room/roomSlice';
+import { useEffect } from 'react';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const { rooms, isLoading, error } = useSelector((store) => store.room);
+  const dispach = useDispatch();
+
+  useEffect(() => {
+    dispach(getRooms());
+  }, []);
+
+  if (isLoading) return <div>Loading ...</div>;
+
+  if (error) return <div>Error Loading</div>;
+
+  return <div>{JSON.stringify(rooms, null, 2)}</div>;
 }
 
 export default App;
