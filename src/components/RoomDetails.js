@@ -23,6 +23,7 @@ const RoomDetails = () => {
     <div>
       <p>{roomDetails[0].hotel_id}</p>
       <p>{roomDetails[0].hotel_name}</p>
+      <p>{roomDetails[0].accommodation_type_name}</p>
       <img
         src={
           roomDetails[0].rooms?.[`${Object.keys(roomDetails[0].rooms)}`]

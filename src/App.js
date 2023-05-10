@@ -1,15 +1,17 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getRooms } from './features/room/roomSlice';
 import Room from './components/Room';
 
 function App() {
+  const [filter, setFilter] = useState('');
   const { rooms, isLoading, error } = useSelector((store) => store.room);
-  const dispach = useDispatch();
+  const dispatch = useDispatch();
+  const categories = [];
 
   useEffect(() => {
     if (rooms.length === 0) {
-      dispach(getRooms());
+      dispatch(getRooms());
     }
   }, []);
 
@@ -24,17 +26,34 @@ function App() {
     );
   }
 
+  const filteredRooms = filter !== ''
+    ? rooms.filter((room) => room.accommodation_type_name === filter)
+    : rooms;
+
   return (
     <div>
       <div className="flex justify-center items-center p-2 bg-red-400">
-        <select>
-          <option>Hotel</option>
-          <option>Apartment</option>
-          <option>Motel</option>
+        {rooms.forEach((rm) => {
+          if (!categories.includes(rm.accommodation_type_name)) {
+            categories.push(rm.accommodation_type_name);
+          }
+        })}
+        <select
+          value={filter}
+          onChange={(e) => {
+            setFilter(e.target.value);
+          }}
+        >
+          <option value="">All</option>
+          {categories.map((category) => (
+            <option value={category} key={category}>
+              {category}
+            </option>
+          ))}
         </select>
       </div>
       <div className="flex flex-wrap justify-center items-center w-screen">
-        {rooms.map((room) => (
+        {filteredRooms.map((room) => (
           <div key={room.hotel_id} className="w-1/2 md:w-1/4">
             <Room room={room} />
           </div>
