@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { getRooms } from './features/room/roomSlice';
 import { useEffect } from 'react';
+import { getRooms } from './features/room/roomSlice';
 import Room from './components/Room';
 
 function App() {
@@ -8,18 +8,27 @@ function App() {
   const dispach = useDispatch();
 
   useEffect(() => {
-    dispach(getRooms());
+    if (rooms.length === 0) {
+      dispach(getRooms());
+    }
   }, []);
 
   if (isLoading) return <div>Loading ...</div>;
 
-  if (error) return <div>Error Loading</div>;
+  if (error) {
+    return (
+      <div>
+        Error Loading
+        {JSON.stringify(error, null, 2)}
+      </div>
+    );
+  }
 
   return (
     <div>
-      {rooms.map((room) => {
-        return <Room key={room.hotel_id} room={room} />;
-      })}
+      {rooms.map((room) => (
+        <Room key={room.hotel_id} room={room} />
+      ))}
     </div>
   );
 }
