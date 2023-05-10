@@ -19,18 +19,20 @@ const RoomDetails = () => {
     };
   }, []);
 
-  const renderDetail = () => {
-    return (
-      <div>
-        <p>{roomDetails[0].hotel_id}</p>
-        <p>{roomDetails[0].hotel_name}</p>
-      </div>
-    );
-  };
+  const renderDetail = () => (
+    <div>
+      <p>{roomDetails[0].hotel_id}</p>
+      <p>{roomDetails[0].hotel_name}</p>
+    </div>
+  );
 
   return (
     <div>
-      <Link to="/">{'<'} Back</Link>
+      <Link to="/">
+        {'<'}
+        {' '}
+        Back
+      </Link>
       RoomDetails
       {roomDetails.length > 0 && renderDetail()}
     </div>

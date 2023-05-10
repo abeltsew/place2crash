@@ -25,7 +25,8 @@ function App() {
   }
 
   return (
-    <div>
+    <div className="flex text-red-500">
+      <p>Hi ther</p>
       {rooms.map((room) => (
         <Room key={room.hotel_id} room={room} />
       ))}
