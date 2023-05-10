@@ -8,7 +8,7 @@ const initialState = {
   filters: [],
   isLoading: false,
   error: undefined,
-  search_id: '',
+  searchId: '',
   roomDetails: JSON.parse(localStorage.getItem('roomDetails'))
     ? JSON.parse(localStorage.getItem('roomDetails'))
     : [],
@@ -40,7 +40,6 @@ const options = {
 
 export const getRooms = createAsyncThunk('rooms/get', async () => {
   const response = await axios.request(options);
-  console.log(response.data);
   return response.data;
 });
 
@@ -50,7 +49,7 @@ export const getDetails = createAsyncThunk('room/detail', async (payload) => {
     url: 'https://apidojo-booking-v1.p.rapidapi.com/properties/detail',
     params: {
       hotel_id: payload.hotel_id,
-      search_id: payload.search_id,
+      search_id: payload.searchId,
       departure_date: '2023-09-18',
       arrival_date: '2023-09-15',
       rec_guest_qty: '2',
@@ -66,7 +65,6 @@ export const getDetails = createAsyncThunk('room/detail', async (payload) => {
       'X-RapidAPI-Host': 'apidojo-booking-v1.p.rapidapi.com',
     },
   });
-  console.log({ detail: response.data });
   return response.data;
 });
 
@@ -75,19 +73,19 @@ const roomSlice = createSlice({
   initialState,
   reducers: {
     clearSearch: (state) => {
-      state.search_id = '';
+      state.searchId = '';
       state.roomDetails = [];
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(getRooms.pending, (state, { payload }) => {
+    builder.addCase(getRooms.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(getRooms.fulfilled, (state, { payload }) => {
       state.isLoading = false;
       state.rooms = payload.result;
       state.filters = payload.recommended_filters;
-      state.search_id = payload.search_id;
+      state.searchId = payload.searchId;
       localStorage.setItem('rooms', JSON.stringify(payload.result));
     });
     builder.addCase(getRooms.rejected, (state, { payload }) => {

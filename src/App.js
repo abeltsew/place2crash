@@ -25,11 +25,21 @@ function App() {
   }
 
   return (
-    <div className="flex text-red-500">
-      <p>Hi ther</p>
-      {rooms.map((room) => (
-        <Room key={room.hotel_id} room={room} />
-      ))}
+    <div>
+      <div className="flex justify-center items-center p-2 bg-red-400">
+        <select>
+          <option>Hotel</option>
+          <option>Apartment</option>
+          <option>Motel</option>
+        </select>
+      </div>
+      <div className="flex flex-wrap justify-center items-center w-screen">
+        {rooms.map((room) => (
+          <div key={room.hotel_id} className="w-1/2 md:w-1/4">
+            <Room room={room} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
