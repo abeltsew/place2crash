@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { clearSearch, getDetails } from '../features/room/roomSlice';
+import Loading from './Loading';
 
 const RoomDetails = () => {
   const { searchId, roomDetails } = useSelector((store) => store.room);
@@ -161,7 +162,7 @@ const RoomDetails = () => {
       </div>
     );
   }
-  return <div>Loading...</div>;
+  return <Loading />;
 };
 
 export default RoomDetails;
