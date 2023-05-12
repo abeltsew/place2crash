@@ -9,9 +9,10 @@ const initialState = {
   isLoading: false,
   error: undefined,
   searchId: '',
-  roomDetails: JSON.parse(localStorage.getItem('roomDetails'))
-    ? JSON.parse(localStorage.getItem('roomDetails'))
-    : [],
+  roomDetails: [],
+  // roomDetails: JSON.parse(localStorage.getItem('roomDetails'))
+  //   ? JSON.parse(localStorage.getItem('roomDetails'))
+  //   : [],
 };
 const options = {
   method: 'GET',
@@ -21,7 +22,7 @@ const options = {
     arrival_date: '2023-06-14',
     departure_date: '2023-06-20',
     guest_qty: '1',
-    dest_ids: '-3712125',
+    dest_ids: '-2601889',
     room_qty: '1',
     search_type: 'city',
     children_qty: '2',
