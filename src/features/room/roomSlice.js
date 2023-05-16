@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const initialState = {
+export const initialState = {
   rooms: JSON.parse(localStorage.getItem('rooms'))
     ? JSON.parse(localStorage.getItem('rooms'))
     : [],
