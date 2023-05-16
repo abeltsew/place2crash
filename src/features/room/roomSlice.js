@@ -84,7 +84,15 @@ const roomSlice = createSlice({
     });
     builder.addCase(getRooms.fulfilled, (state, { payload }) => {
       state.isLoading = false;
-      state.rooms = payload.result;
+      const filteredRooms = [];
+      payload.result.map((info) => filteredRooms.push({
+        hotel_id: info.hotel_id,
+        hotel_name: info.hotel_name,
+        main_photo_url: info.main_photo_url,
+        accommodation_type_name: info.accommodation_type_name,
+        hotel_facilities: info.hotel_facilities,
+      }));
+      state.rooms = filteredRooms;
       state.filters = payload.recommended_filters;
       state.searchId = payload.searchId;
       localStorage.setItem('rooms', JSON.stringify(payload.result));
