@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-import { clearSearch, getDetails } from '../features/room/roomSlice';
+import { getDetails } from '../features/room/roomSlice';
 import Loading from './Loading';
 
 const RoomDetails = () => {
@@ -14,12 +14,6 @@ const RoomDetails = () => {
 
   useEffect(() => {
     dispatch(getDetails({ hotel_id: params.id, searchId }));
-
-    return () => {
-      if (process.env.NODE_ENV === 'production') {
-        dispatch(clearSearch());
-      }
-    };
   }, [dispatch]);
 
   const renderDetail = () => (
