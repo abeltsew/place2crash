@@ -67,7 +67,7 @@ This site is built as part of an exercise at Microverse. The site is about a Boo
 
 ## 🚀 Live Demo <a name="live-demo"></a>
 
-- [Live Demo](https://bookstore-xikb.onrender.com/)
+- [Live Demo](https://place2crash.onrender.com)
 
 <!-- GETTING STARTED -->
 
