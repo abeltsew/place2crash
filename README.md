@@ -7,6 +7,7 @@
     - [Tech Stack](#tech-stack)
     - [Key Features](#key-features)
   - [🚀 Live Demo](#live-demo)
+  - [ Video Presentation](#video)
 - [💻 Getting Started](#getting-started)
   - [Setup](#setup)
   - [Prerequisites](#prerequisites)
@@ -68,6 +69,12 @@ This site is built as part of a Capstone project at Microverse. The site is abou
 ## 🚀 Live Demo <a name="live-demo"></a>
 
 - [Live Demo](https://place2crash.onrender.com)
+
+<!-- Presentation -->
+
+## Video Presentation <a name="video"></a>
+
+-[Presentation](https://www.loom.com/share/1c07578e97c0433b94ec7ed1acd38bec)
 
 <!-- GETTING STARTED -->
 
