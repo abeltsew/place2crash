@@ -158,6 +158,8 @@ If you like this project you can buy me coffee. Contact detail is above.
 
 ## 🙏 Acknowledgments <a name="acknowledgements"></a>
 
+Design templete is by [Nelson Sakwa on Behance](https://www.behance.net/sakwadesignstudio)
+
 Thank you Microverse
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
