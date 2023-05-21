@@ -23,11 +23,11 @@
 
 <!-- PROJECT DESCRIPTION -->
 
-# 📖 Bookstore <a name="about-project"></a>
+# 📖 Place 2 Crash <a name="about-project"></a>
 
-This site is built as part of an exercise at Microverse. The site is about a Books, This project is a Library app I created with react js👌.
+This site is built as part of a Capstone project at Microverse. The site is about a Booking a room, This project is created with react js and redux👌.
 
-**The Bookstore React project** i
+**The Place 2 Crash React project** i
 
 ## 🛠 Built With <a name="built-with"></a>
 
@@ -85,7 +85,7 @@ Clone this repository to your desired folder:
 
 ```sh
   cd my-folder
-  git clone https://github.com/abeltsew/bookstore.git
+  git clone https://github.com/abeltsew/place2crash.git
 ```
 
 ### Install
