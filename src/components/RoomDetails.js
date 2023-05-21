@@ -12,16 +12,14 @@ const RoomDetails = () => {
   const params = useParams();
   const dispatch = useDispatch();
   useEffect(() => {
-    // if (roomDetails.length === 0) {
     dispatch(getDetails({ hotel_id: params.id, searchId }));
-    // }
 
     return () => {
       if (process.env.NODE_ENV === 'production') {
         dispatch(clearSearch());
       }
     };
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     setRoom(roomDetails[0]);

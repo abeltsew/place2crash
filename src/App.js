@@ -15,7 +15,7 @@ function App() {
     if (rooms?.length === 0) {
       dispatch(getRooms());
     }
-  }, []);
+  }, [dispatch]);
 
   if (isLoading) return <Loading />;
 
