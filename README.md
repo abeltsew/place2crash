@@ -7,6 +7,7 @@
     - [Tech Stack](#tech-stack)
     - [Key Features](#key-features)
   - [🚀 Live Demo](#live-demo)
+  - [ Video Presentation](#video)
 - [💻 Getting Started](#getting-started)
   - [Setup](#setup)
   - [Prerequisites](#prerequisites)
@@ -23,11 +24,11 @@
 
 <!-- PROJECT DESCRIPTION -->
 
-# 📖 Bookstore <a name="about-project"></a>
+# 📖 Place 2 Crash <a name="about-project"></a>
 
-This site is built as part of an exercise at Microverse. The site is about a Books, This project is a Library app I created with react js👌.
+This site is built as part of a Capstone project at Microverse. The site is about a Booking a room, This project is created with react js and redux👌.
 
-**The Bookstore React project** i
+**The Place 2 Crash React project** i
 
 ## 🛠 Built With <a name="built-with"></a>
 
@@ -67,7 +68,13 @@ This site is built as part of an exercise at Microverse. The site is about a Boo
 
 ## 🚀 Live Demo <a name="live-demo"></a>
 
-- [Live Demo](https://bookstore-xikb.onrender.com/)
+- [Live Demo](https://place2crash.onrender.com)
+
+<!-- Presentation -->
+
+## Video Presentation <a name="video"></a>
+
+-[Presentation Video](https://www.loom.com/share/1c07578e97c0433b94ec7ed1acd38bec)
 
 <!-- GETTING STARTED -->
 
@@ -85,7 +92,7 @@ Clone this repository to your desired folder:
 
 ```sh
   cd my-folder
-  git clone https://github.com/abeltsew/bookstore.git
+  git clone https://github.com/abeltsew/place2crash.git
 ```
 
 ### Install
@@ -157,6 +164,8 @@ If you like this project you can buy me coffee. Contact detail is above.
 <!-- ACKNOWLEDGEMENTS -->
 
 ## 🙏 Acknowledgments <a name="acknowledgements"></a>
+
+Design templete is by [Nelson Sakwa on Behance](https://www.behance.net/sakwadesignstudio)
 
 Thank you Microverse
 

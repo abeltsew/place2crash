@@ -1,43 +1,31 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-import { clearSearch, getDetails } from '../features/room/roomSlice';
+import { getDetails } from '../features/room/roomSlice';
 import Loading from './Loading';
 
 const RoomDetails = () => {
-  const { searchId, roomDetails } = useSelector((store) => store.room);
-  const [room, setRoom] = useState(undefined);
-  const [rooms, setRooms] = useState(undefined);
+  const { searchId, roomDetails, detailLoading } = useSelector(
+    (store) => store.room,
+  );
 
   const params = useParams();
   const dispatch = useDispatch();
+
   useEffect(() => {
-    // if (roomDetails.length === 0) {
     dispatch(getDetails({ hotel_id: params.id, searchId }));
-    // }
-
-    return () => {
-      if (process.env.NODE_ENV === 'production') {
-        dispatch(clearSearch());
-      }
-    };
-  }, []);
-
-  useEffect(() => {
-    setRoom(roomDetails[0]);
-    setRooms(room?.rooms?.[`${Object.keys(room.rooms)}`]);
-  }, [roomDetails]);
+  }, [dispatch]);
 
   const renderDetail = () => (
     <ul className="flex flex-col bg-black">
-      {rooms.photos.map((photo, i) => {
+      {roomDetails.rooms.photos.map((photo, i) => {
         if (i > 0) {
           return (
             <li className="flex p-2" key={photo?.url_original}>
               <img className="w-1/4" src={photo?.url_original} alt="room" />
               <div className="flex-1 p-2">
-                <p>{rooms.facilities[i]?.name}</p>
-                <p>{rooms.highlights[i]?.translated_name}</p>
+                <p>{roomDetails.rooms.facilities[i]?.name}</p>
+                <p>{roomDetails.rooms.highlights[i]?.translated_name}</p>
                 <div className="flex items-end gap-1">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -64,105 +52,104 @@ const RoomDetails = () => {
     </ul>
   );
 
-  if (rooms) {
-    return (
-      <div className="text-white bg-black h-screen text-[0.7rem] ">
-        <ul className="flex justify-between items-center bg-[#31528b] w-full p-2 text-white ">
-          <li>
-            <Link className="flex item-center" to="/">
-              <p>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-6 h-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M15.75 19.5L8.25 12l7.5-7.5"
-                  />
-                </svg>
-              </p>
-              <p className="self-center">Home</p>
-            </Link>
-          </li>
-          <li>{room.hotel_name.split(' ')[0]}</li>
-          <li className="flex gap-2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z"
-              />
-            </svg>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 011.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.56.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.893.149c-.425.07-.765.383-.93.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 01-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.397.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 01-.12-1.45l.527-.737c.25-.35.273-.806.108-1.204-.165-.397-.505-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.107-1.204l-.527-.738a1.125 1.125 0 01.12-1.45l.773-.773a1.125 1.125 0 011.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894z"
-              />
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-              />
-            </svg>
-          </li>
-        </ul>
-        <div className="relative w-screen h-56">
-          <div className="absolute bg-[#31528b] h-full w-full opacity-80" />
-          <div className="absolute flex justify-between items-center h-full w-full p-2">
-            <div className="flex flex-col whitespace-nowrap self-end">
-              <p className="text-xl">
-                {`${room.distance_to_cc.toFixed(2)} km`}
-              </p>
-              <p className="">Distance to city</p>
-              <p className="text-xl">
-                {`${room.composite_price_breakdown.net_amount.value.toFixed(
-                  2,
-                )} ${room.composite_price_breakdown.net_amount.currency}`}
-              </p>
-              <p className="">Price Per Night</p>
-            </div>
-            <div className="flex flex-col text-center">
-              <p className="text-3xl pb-4">{room.country_trans}</p>
-              <p className="text-xl">{`${room.average_room_size_for_ufi_m2}`}</p>
-              <p>Square Meter</p>
-            </div>
-            <p className="whitespace-nowrap">{`Rating ${room.breakfast_review_score?.review_score} / 10`}</p>
-          </div>
-          <img
-            className="h-56 w-full"
-            src={rooms.photos[0]?.url_original}
-            alt="Hotel room"
-          />
-        </div>
+  if (detailLoading) return <Loading />;
 
-        <div className="flex justify-between items-center bg-[#31528b] p-2 text-sm">
-          {room.hotel_name}
+  return (
+    <div className="text-white bg-black h-screen text-[0.7rem] ">
+      <ul className="flex justify-between items-center bg-[#31528b] w-full p-2 text-white ">
+        <li>
+          <Link className="flex item-center" to="/">
+            <p>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 19.5L8.25 12l7.5-7.5"
+                />
+              </svg>
+            </p>
+            <p className="self-center">Home</p>
+          </Link>
+        </li>
+        <li>{roomDetails.hotel_name.split(' ')[0]}</li>
+        <li className="flex gap-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z"
+            />
+          </svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 011.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.56.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.893.149c-.425.07-.765.383-.93.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 01-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.397.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 01-.12-1.45l.527-.737c.25-.35.273-.806.108-1.204-.165-.397-.505-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.107-1.204l-.527-.738a1.125 1.125 0 01.12-1.45l.773-.773a1.125 1.125 0 011.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894z"
+            />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+            />
+          </svg>
+        </li>
+      </ul>
+      <div className="relative w-screen h-56">
+        <div className="absolute bg-[#31528b] h-full w-full opacity-80" />
+        <div className="absolute flex justify-between items-center h-full w-full p-2">
+          <div className="flex flex-col whitespace-nowrap self-end">
+            <p className="text-xl">
+              {`${roomDetails.distance_to_cc.toFixed(2)} km`}
+            </p>
+            <p className="">Distance to city</p>
+            <p className="text-xl">
+              {`${roomDetails.composite_price_breakdown.net_amount.value.toFixed(
+                2,
+              )} ${roomDetails.composite_price_breakdown.net_amount.currency}`}
+            </p>
+            <p className="">Price Per Night</p>
+          </div>
+          <div className="flex flex-col text-center">
+            <p className="text-3xl pb-4">{roomDetails.country_trans}</p>
+            <p className="text-xl">{`${roomDetails.average_room_size_for_ufi_m2}`}</p>
+            <p>Square Meter</p>
+          </div>
+          <p className="whitespace-nowrap">{`Rating ${roomDetails.breakfast_review_score?.review_score} / 10`}</p>
         </div>
-        {roomDetails.length > 0 && renderDetail()}
+        <img
+          className="h-56 w-full"
+          src={roomDetails.rooms.photos[0]?.url_original}
+          alt="Hotel room"
+        />
       </div>
-    );
-  }
-  return <Loading />;
+
+      <div className="flex justify-between items-center bg-[#31528b] p-2 text-sm">
+        {roomDetails.hotel_name}
+      </div>
+      {renderDetail()}
+    </div>
+  );
 };
 
 export default RoomDetails;

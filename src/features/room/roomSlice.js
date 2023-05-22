@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-const initialState = {
+export const initialState = {
   rooms: JSON.parse(localStorage.getItem('rooms'))
     ? JSON.parse(localStorage.getItem('rooms'))
     : [],
@@ -10,6 +10,7 @@ const initialState = {
   error: undefined,
   searchId: '',
   roomDetails: [],
+  detailLoading: true,
   // roomDetails: JSON.parse(localStorage.getItem('roomDetails'))
   //   ? JSON.parse(localStorage.getItem('roomDetails'))
   //   : [],
@@ -66,7 +67,7 @@ export const getDetails = createAsyncThunk('room/detail', async (payload) => {
       'X-RapidAPI-Host': 'apidojo-booking-v1.p.rapidapi.com',
     },
   });
-  return response.data;
+  return response.data[0];
 });
 
 const roomSlice = createSlice({
@@ -84,7 +85,15 @@ const roomSlice = createSlice({
     });
     builder.addCase(getRooms.fulfilled, (state, { payload }) => {
       state.isLoading = false;
-      state.rooms = payload.result;
+      const filteredRooms = [];
+      payload.result.map((info) => filteredRooms.push({
+        hotel_id: info.hotel_id,
+        hotel_name: info.hotel_name,
+        main_photo_url: info.main_photo_url,
+        accommodation_type_name: info.accommodation_type_name,
+        hotel_facilities: info.hotel_facilities,
+      }));
+      state.rooms = filteredRooms;
       state.filters = payload.recommended_filters;
       state.searchId = payload.searchId;
       localStorage.setItem('rooms', JSON.stringify(payload.result));
@@ -96,13 +105,27 @@ const roomSlice = createSlice({
 
     // Room Details
 
+    builder.addCase(getDetails.pending, (state) => {
+      state.detailLoading = true;
+    });
+
     builder.addCase(getDetails.fulfilled, (state, { payload }) => {
-      state.isLoading = false;
-      state.roomDetails = payload;
-      localStorage.setItem('roomDetails', JSON.stringify(payload));
+      state.detailLoading = false;
+      const filteredDetail = {};
+
+      filteredDetail.hotel_name = payload.hotel_name;
+      filteredDetail.distance_to_cc = payload.distance_to_cc;
+      filteredDetail.composite_price_breakdown = payload.composite_price_breakdown;
+      filteredDetail.rooms = payload.rooms?.[`${Object.keys(payload.rooms)}`];
+      filteredDetail.country_trans = payload.country_trans;
+      filteredDetail.average_room_size_for_ufi_m2 = payload.average_room_size_for_ufi_m2;
+      filteredDetail.breakfast_review_score = payload.breakfast_review_score;
+
+      state.roomDetails = filteredDetail;
+      localStorage.setItem('roomDetails', JSON.stringify(filteredDetail));
     });
     builder.addCase(getDetails.rejected, (state, { payload }) => {
-      state.isLoading = false;
+      state.detailLoading = false;
       state.error = payload;
     });
   },
