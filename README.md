@@ -74,7 +74,7 @@ This site is built as part of a Capstone project at Microverse. The site is abou
 
 ## Video Presentation <a name="video"></a>
 
--[Presentation](https://www.loom.com/share/1c07578e97c0433b94ec7ed1acd38bec)
+-[Presentation Video](https://www.loom.com/share/1c07578e97c0433b94ec7ed1acd38bec)
 
 <!-- GETTING STARTED -->
 
