@@ -108,7 +108,7 @@ Install this project with:
 To run the project:
 
 ```sh
-  use git bash to open in Vs code
+  use code . to open in Vs code
 ```
 
 ### Run tests
