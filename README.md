@@ -32,7 +32,7 @@ This site is built as part of a Capstone project at Microverse. The site is abou
 
 ## 🛠 Built With <a name="built-with"></a>
 
-### Tech Stack <a name="tech-stack"></a>
+### Tech Stack used<a name="tech-stack"></a>
 
 <details>
   <summary>Client</summary>
