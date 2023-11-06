@@ -105,7 +105,7 @@ Install this project with:
 
 ### Usage
 
-To run the project:
+To run this project:
 
 ```sh
   use code . to open in Vs code
